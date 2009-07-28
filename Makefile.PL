@@ -12,6 +12,7 @@ WriteMakefile(
     PREREQ_PM => {
         'Encode'         => 2.00,
         'Test::More'     => 0,
+	# 'HTTP::Message'  => 5.827,
         'HTTP::Response' => 0,
       },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },

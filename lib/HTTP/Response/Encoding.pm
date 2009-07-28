@@ -1,11 +1,20 @@
 package HTTP::Response::Encoding;
 use warnings;
 use strict;
-our $VERSION = sprintf "%d.%02d", q$Revision: 0.5 $ =~ /(\d+)/g;
+our $VERSION = sprintf "%d.%02d", q$Revision: 0.6 $ =~ /(\d+)/g;
 
 sub HTTP::Response::charset {
     my $self = shift;
     return $self->{__charset} if exists $self->{__charset};
+    if ($self->can('content_charset')){
+	# To suppress:
+	# Parsing of undecoded UTF-8 will give garbage when decoding entities
+	local $SIG{__WARN__} = sub {};
+	my $charset = $self->content_charset;
+	$self->{__charset} = $charset;
+	return $charset;
+    }
+
     my $content_type = $self->headers->header('Content-Type');
     return unless $content_type;
     $content_type =~ /charset=([A-Za-z0-9_\-]+)/io;
@@ -32,7 +41,7 @@ HTTP::Response::Encoding - Adds encoding() to HTTP::Response
 
 =head1 VERSION
 
-$Id: Encoding.pm,v 0.5 2007/05/12 09:24:15 dankogai Exp $
+$Id: Encoding.pm,v 0.6 2009/07/28 21:25:25 dankogai Exp dankogai $
 
 =cut
 

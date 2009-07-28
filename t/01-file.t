@@ -1,4 +1,3 @@
-#!perl
 #!perl -T
 
 use strict;
@@ -55,4 +54,8 @@ my $uri = URI->new('file://');
 $uri->path(File::Spec->catfile($cwd, "t", "t-null.html"));
 my $res = $ua->get($uri);
 die unless $res->is_success;
-is $res->encoding, undef, "res->encoding eq undef";
+if (defined $res->encoding){
+    is $res->encoding, "ascii", "res->encoding is ascii";
+}else{
+    ok !$res->encoding, "res->encoding is undef";
+}
