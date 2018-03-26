@@ -3,6 +3,11 @@
 # $Id: Changes,v 0.6 2009/07/28 21:25:25 dankogai Exp dankogai $
 # 
 $Revision: 0.6 $ $Date: 2009/07/28 21:25:25 $
+! Makefile.PL
+  Address RT#80051: Undeclared dependency on LWP::UserAgent
+  https://rt.cpan.org/Public/Bug/Display.html?id=80051
+
+0.06 2009/07/28 21:25:25
 ! lib/HTTP/Response/Encoding.pm t/01-file.t
   Addressed RT#47033:
     new libwww-perl-5.827 release from 15.06.2009 breaks all tests
